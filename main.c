@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Bitmap1.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -150,6 +151,17 @@ int main(void)
 
 
 
+
+  int max;
+  int maxfreq;
+
+  char smax[5];
+  char smaxfreq[5];
+  maxfreq = 0;
+  int i;
+  int f;
+
+
   /* USER CODE END 2 */
  
  
@@ -162,17 +174,31 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	  int i;
-	  int f;
 
-	    for (i = 1; i < 250; ++i)
+
+
+	  max = 0;
+	  for (i = 1; i < 250; ++i)
 	    {
 	      f = (rand()%200);
 	      BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-	      BSP_LCD_DrawLine(20,20+i,(220),20+i);
+	      BSP_LCD_DrawLine(20,41+i,(220),41+i);
 	      BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	  	  BSP_LCD_DrawLine(20,20+i,(f)+20,20+i);
+	  	  BSP_LCD_DrawLine(20,41+i,(f)+20,41+i);
+
+	  	  if (f > max) {
+			max = f;
+			maxfreq = i;
+		}
 	    }
+
+	  itoa(max, smax, 10);
+	  itoa(maxfreq, smaxfreq, 10);
+
+	  strcat(smax, "   ");
+	  strcat(smax, smaxfreq);
+
+	  BSP_LCD_DisplayStringAtLine(0, (smax));
 
 
   }
