@@ -9,10 +9,10 @@
   * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -23,8 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Bitmap1.h"
-#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,51 +119,8 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  BSP_LED_Init(LED3);
-  BSP_LCD_Init();
-  BSP_LCD_LayerDefaultInit(LCD_BACKGROUND_LAYER, LCD_FRAME_BUFFER);
-  BSP_LCD_LayerDefaultInit(LCD_FOREGROUND_LAYER, LCD_FRAME_BUFFER);
-  BSP_LCD_DisplayOn();
-  BSP_LCD_SelectLayer(LCD_BACKGROUND_LAYER);
-  BSP_LCD_SetFont(&Font12);
-
-  BSP_LCD_Clear(LCD_COLOR_WHITE);
-  BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-
-
- /* uint8_t* text = "LMAO 69 NICE";
-
-  BSP_LCD_DisplayStringAtLine(0, text);
-
-  BSP_LCD_DrawCircle(50, 50, 50);
-  BSP_LCD_DrawCircle(150, 50, 50);
-  BSP_LCD_DrawRect(50, 100, 100, 200);
-*/
-
-
-  BSP_LCD_SelectLayer(LCD_BACKGROUND_LAYER);
-  BSP_LCD_DrawBitmap(0, 0, logo);
-
-
-
-
-
-
-
-
-  int max;
-  int maxfreq;
-
-  char smax[5];
-  char smaxfreq[5];
-  maxfreq = 0;
-  int i;
-  int f;
-
 
   /* USER CODE END 2 */
- 
- 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -173,34 +129,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-
-
-
-	  max = 0;
-	  for (i = 1; i < 250; ++i)
-	    {
-	      f = (rand()%200);
-	      BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
-	      BSP_LCD_DrawLine(20,41+i,(220),41+i);
-	      BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-	  	  BSP_LCD_DrawLine(20,41+i,(f)+20,41+i);
-
-	  	  if (f > max) {
-			max = f;
-			maxfreq = i;
-		}
-	    }
-
-	  itoa(max, smax, 10);
-	  itoa(maxfreq, smaxfreq, 10);
-
-	  strcat(smax, "   ");
-	  strcat(smax, smaxfreq);
-
-	  BSP_LCD_DisplayStringAtLine(0, (smax));
-
-
   }
   /* USER CODE END 3 */
 }
@@ -732,9 +660,6 @@ void Error_Handler(void)
 
   /* USER CODE END Error_Handler_Debug */
 }
-
-
-
 
 #ifdef  USE_FULL_ASSERT
 /**
