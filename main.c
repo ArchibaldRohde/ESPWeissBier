@@ -20,7 +20,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include <string.h>
+#include <stdio.h>
+#include <math.h>
+#include <complex.h>
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -119,19 +122,137 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  BSP_LED_Init(LED3);
+  BSP_LCD_Init();
+  BSP_LCD_LayerDefaultInit(LCD_BACKGROUND_LAYER, LCD_FRAME_BUFFER);
+  BSP_LCD_LayerDefaultInit(LCD_FOREGROUND_LAYER, LCD_FRAME_BUFFER);
+  BSP_LCD_DisplayOn();
+  BSP_LCD_SelectLayer(LCD_BACKGROUND_LAYER);
+  BSP_LCD_SetFont(&Font12);
+
+  BSP_LCD_Clear(LCD_COLOR_WHITE);
+  BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+  BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+
 
   /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+  /* USER CODE BEGIN 3 */
 
-    /* USER CODE BEGIN 3 */
+
+//---------------------------------------------------------------
+//Bit reversal
+//---------------------------------------------------------------
+
+	int i = 0;
+	int y = 0;
+	int j = 0;
+	char z[10];
+	char x[10];
+	char t[10];
+	char s[10];
+	for(i=0; i<8;++i)
+	{
+		itoa(i,s,2);
+		y = strlen(s);
+		if(y<2)
+		{
+			s[2] = s[0];
+			s[1] = '0';
+			s[0] = '0';
+
+			x[0] = s[0];
+			x[1] = s[1];
+			x[2] = s[2];
+
+			atoi(x,j);
+			//BSP_LCD_DisplayStringAtLine(i,x);
+		}else if(y<3)
+		{
+			s[2] = s[1];
+			s[1] = s[0];
+			s[0] = '0';
+
+			x[0] = s[0];
+			x[1] = s[1];
+			x[2] = s[2];
+			//BSP_LCD_DisplayStringAtLine(i,x);
+		} else
+		{
+			x[0] = s[0];
+			x[1] = s[1];
+			x[2] = s[2];
+			//BSP_LCD_DisplayStringAtLine(i,x);
+		}
+		t[0] = x[2];
+		t[1] = x[1];
+		t[2] = x[0];
+
+		j = atoi(t);
+
+
+		int dec = 0, p = 0, rem;
+		while(j != 0){
+			rem = j % 10;
+			j /= 10;
+			dec += rem * pow(2,p);
+			++p;
+		}
+
+		itoa(dec,z,10);
+		//BSP_LCD_DisplayStringAtLine(i,z);
+	}
+
+
+//------------------------------------------------------------------------
+//Butterfly algorithm
+//------------------------------------------------------------------------
+
+
+/*	double complex z1 = 1.0 + 3.0 * I;
+	double complex z2 = 1.0 - 4.0 * I;
+	int real = 0, imag = 0;
+	char sreal[10]="", simag[10]="", full[10]="";
+
+	real = creal(z1);
+	itoa(real,sreal,10);
+
+	imag = cimag(z1);
+	itoa(imag,simag,10);
+
+	strcat(sreal, " + j");
+	strcat(sreal, simag);
+	strcpy(full,sreal);
+
+	BSP_LCD_DisplayStringAtLine(0,full);*/
+
+	int stage = 0, eqn = 0;
+	double complex W = 0 + 0*I;
+	float pi = 0;
+	char test[10] = "";
+
+	pi = M_PI;
+	gcvt(pi,6,test);
+	BSP_LCD_DisplayStringAtLine(0,test);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
   /* USER CODE END 3 */
-}
+
 
 /**
   * @brief System Clock Configuration
